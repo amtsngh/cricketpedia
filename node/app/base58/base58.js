@@ -1,11 +1,10 @@
-const bs58 = require('bs58')
+var crypto = require('crypto');
 
-function encode(num) {
-    console.log("num",num)
-    let encoded = '';
-    const bytes = Buffer.from(JSON.stringify(num),'hex')
-    encoded = bs58.encode(bytes)
-    return encoded;
+function encode(UTM) {
+    var md5sum = crypto.createHash('md5');
+    md5sum.update(UTM);
+    var hash = md5sum.digest('hex');
+    return hash;
 }
 
 function decode(str) {

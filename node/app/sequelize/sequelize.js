@@ -20,10 +20,17 @@ const Url = sequelize.define('Url', {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  numLogs: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: 0,
+  utmSource: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  utmMedium: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  utmCampaign: {
+    type: Sequelize.STRING,
+    allowNull: true,
   },
 });
 

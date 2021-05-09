@@ -1,31 +1,36 @@
-const Url = require('../sequelize/sequelize.js');
+const sequelize = require('../sequelize/sequelize.js');
 const base58 = require('../base58/base58.js');
+const urlpack = require('url');
+const querystring = require('querystring');
 
 const webhost = 'http://localhost:3000';
 
 function shorten(req, res) {
   if (req.body.url) {
     const longUrl = req.body.url;
-    // Check if url already exists in the database
-    Url.findOne({ where: { longUrl } }).then(async (url) => {
+    sequelize.findOne({ where: { longUrl } }).then(async (url) => {
+      let hash
       if (!url) {
-        // Since it doesn't exist, let's go ahead and create it
-        var UTM = new URL(longUrl).pathname;
-        console.log("UTM",UTM)
-        let hash = base58.encode(UTM)
-        console.log("hash",hash);
-        url = await Url.create({hash,longUrl });
+        let parsedUrl = urlpack.parse(longUrl);
+        let parsedQs = querystring.parse(parsedUrl.query);
+        if (!(parsedQs.utm_source) || !(parsedQs.utm_medium) || !(parsedQs.utm_campaign)) {
+          return res.status(201).json({ Error: `Please Check The URL.` });
+        }
+        let UTMData = JSON.stringify(parsedQs)
+        hash = base58.encode(UTMData)
+        let utmSource = parsedQs.utm_source;
+        let utmMedium = parsedQs.utm_medium;
+        let utmCampaign = parsedQs.utm_campaign;
+        url = await sequelize.create({ hash, longUrl, utmSource, utmMedium, utmCampaign });
       }
-      res.status(201).json({ shortUrl: `${webhost}/${base58.encode(url.id)}` });
+      res.status(201).json({ shortUrl: `${webhost}/${url.hash}` });
     });
   }
 }
 
 function decode(req, res) {
-  const base58ID = req.params.encodedId;
-  const id = base58.decode(base58ID);
-  // Check if url already exists in the database
-  Url.findOne({ where: { id } }).then((url) => {
+  const hash = req.params.encodedId;
+  sequelize.findOne({ where: { hash } }).then((url) => {
     if (url) {
       res.redirect(url.longUrl);
     } else {
