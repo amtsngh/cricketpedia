@@ -8,9 +8,5 @@ module.exports = function(app, console) {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(express.static(path.join(path.resolve(), 'view')));
 
-    app.get('/', (req, res) => {
-        console.log("New Req",req)
-    });
-
     app.use('/', routes);
 };

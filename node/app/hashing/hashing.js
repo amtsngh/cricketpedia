@@ -1,5 +1,5 @@
 const sequelize = require('../sequelize/sequelize.js');
-const base58 = require('../base58/base58.js');
+const crypto = require('../crypto/crypto.js');
 const urlpack = require('url');
 const querystring = require('querystring');
 
@@ -17,7 +17,7 @@ function shorten(req, res) {
           return res.status(201).json({ Error: `Please Check The URL Again.` });
         }
         let UTMData = JSON.stringify(parsedQs)
-        hash = base58.encode(UTMData)
+        hash = crypto.encode(UTMData)
         let utmSource = parsedQs.utm_source;
         let utmMedium = parsedQs.utm_medium;
         let utmCampaign = parsedQs.utm_campaign;
@@ -32,6 +32,7 @@ function decode(req, res) {
   const hash = req.params.encodedId;
   sequelize.findOne({ where: { hash } }).then((url) => {
     if (url) {
+      console.log("Redirecting to main URL :",url.longUrl)
       res.redirect(url.longUrl);
     } else {
       res.redirect(webhost);
