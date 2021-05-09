@@ -14,7 +14,7 @@ function shorten(req, res) {
         let parsedUrl = urlpack.parse(longUrl);
         let parsedQs = querystring.parse(parsedUrl.query);
         if (!(parsedQs.utm_source) || !(parsedQs.utm_medium) || !(parsedQs.utm_campaign)) {
-          return res.status(201).json({ Error: `Please Check The URL.` });
+          return res.status(201).json({ Error: `Please Check The URL Again.` });
         }
         let UTMData = JSON.stringify(parsedQs)
         hash = base58.encode(UTMData)
@@ -23,7 +23,7 @@ function shorten(req, res) {
         let utmCampaign = parsedQs.utm_campaign;
         url = await sequelize.create({ hash, longUrl, utmSource, utmMedium, utmCampaign });
       }
-      res.status(201).json({ shortUrl: `${webhost}/${url.hash}` });
+      res.status(201).json({ shortUrl: `${webhost}/${url.hash}`, utmSource: url.utmSource, utmMedium: url.utmMedium, utmCampaign: url.utmCampaign });
     });
   }
 }

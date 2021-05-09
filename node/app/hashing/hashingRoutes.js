@@ -9,9 +9,8 @@ module.exports = function(app, console) {
     app.use(express.static(path.join(path.resolve(), 'view')));
 
     app.get('/', (req, res) => {
-        // res.sendFile(path.join(path.resolve(), '/app/view/index.html'));
+        console.log("New Req",req)
     });
 
-    // Mount all routes on / path
     app.use('/', routes);
 };
