@@ -2,8 +2,8 @@
 
 Requirement
 1. Node JS
-2. Mysql should already be running at port 3306 or you can configure the port in code (/node/app/sequelize/sequelize.js)
-3. An existing Database named "cricketpedia" 
+2. MySQL should already be running at port 3306 or you can configure the port, usename or password in the file "/node/app/sequelize/sequelize.js"
+3. An existing Database named "cricketpedia" in MySQL
 
 Steps to execute.
 
