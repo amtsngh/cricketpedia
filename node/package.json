@@ -1,0 +1,24 @@
+{
+  "name": "cricketpedia",
+  "version": "1.0.0",
+  "description": "URL hashing system: Cricketpedia",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amtsngh/cricketpedia.git"
+  },
+  "author": "Amit Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amtsngh/cricketpedia/issues"
+  },
+  "homepage": "https://github.com/amtsngh/cricketpedia#readme",
+  "dependencies": {
+    "express": "~4.16.2",
+    "sequelize": "^5.15.1",
+    "mysql2": "^1.5.1"
+  }
+}
