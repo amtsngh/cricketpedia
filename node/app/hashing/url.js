@@ -1,5 +1,5 @@
 const express = require('express');
-const urlCtrl = require('./hasing.js');
+const urlCtrl = require('./hashing.js');
 
 const router = express.Router();
 

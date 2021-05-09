@@ -1,14 +1,11 @@
-const alphabet = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
-const base = alphabet.length;
+const bs58 = require('bs58')
 
 function encode(num) {
-  let encoded = '';
-  while (num) {
-    const remainder = num % base;
-    num = Math.floor(num / base);
-    encoded = alphabet[remainder].toString() + encoded;
-  }
-  return encoded;
+    console.log("num",num)
+    let encoded = '';
+    const bytes = Buffer.from(JSON.stringify(num),'hex')
+    encoded = bs58.encode(bytes)
+    return encoded;
 }
 
 function decode(str) {

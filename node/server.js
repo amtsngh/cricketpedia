@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-require('./app/hasing/hashingRoutes')(app, console);
+require('./app/hashing/hashingRoutes')(app, console);
 
 const Url = require('../node/app/sequelize/sequelize.js');
 Url.sync({ force: true });

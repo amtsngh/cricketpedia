@@ -17,8 +17,9 @@
   },
   "homepage": "https://github.com/amtsngh/cricketpedia#readme",
   "dependencies": {
+    "bs58": "^4.0.1",
     "express": "~4.16.2",
-    "sequelize": "^5.15.1",
-    "mysql2": "^1.5.1"
+    "mysql2": "^1.5.1",
+    "sequelize": "^5.15.1"
   }
 }

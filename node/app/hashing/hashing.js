@@ -10,7 +10,11 @@ function shorten(req, res) {
     Url.findOne({ where: { longUrl } }).then(async (url) => {
       if (!url) {
         // Since it doesn't exist, let's go ahead and create it
-        url = await Url.create({ longUrl });
+        var UTM = new URL(longUrl).pathname;
+        console.log("UTM",UTM)
+        let hash = base58.encode(UTM)
+        console.log("hash",hash);
+        url = await Url.create({hash,longUrl });
       }
       res.status(201).json({ shortUrl: `${webhost}/${base58.encode(url.id)}` });
     });

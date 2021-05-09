@@ -11,10 +11,10 @@ const sequelize = new Sequelize('cricketpedia', 'root', 'password', {
 sequelize.authenticate();
 
 const Url = sequelize.define('Url', {
-  id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
+  hash: {
+    type: Sequelize.STRING,
     primaryKey: true,
+    allowNull: false,
   },
   longUrl: {
     type: Sequelize.STRING,
